@@ -51,8 +51,8 @@ namespace WiiBalanceScale
         static DataWriter writer;
         static IList<Record> data;
         static Scale scale = new Scale();
-            
 
+        [STAThread]
         static void Main(string[] args)
         {
             Application.EnableVisualStyles();
@@ -134,7 +134,8 @@ namespace WiiBalanceScale
             return (!string.IsNullOrWhiteSpace(f.txtName.Text)
                 && !string.IsNullOrWhiteSpace(f.txtHeight.Text)
                 && !string.IsNullOrWhiteSpace(f.txtWeight.Text)
-                && !string.IsNullOrWhiteSpace(f.boxSex.Text));
+                && !string.IsNullOrWhiteSpace(f.boxSex.Text)
+                && !string.IsNullOrWhiteSpace(f.txtPath.Text));
         }
 
         private static Subject getSubjectData()
@@ -158,7 +159,7 @@ namespace WiiBalanceScale
         static void StarMeasuring()
         {
 
-            writer = new DataWriter(getSubjectData());
+            writer = new DataWriter(getSubjectData(),f.txtPath.Text);
 
             f.progressbar.Value = 0;
             f.countdown.Text = MEASUREMENT_DURATION.ToString();
@@ -218,7 +219,6 @@ namespace WiiBalanceScale
             {
                 if (cm.IsRunning())
                 {
-                    //f.lblWeight.Text = "WAIT...";
                     return;
                 }
                 if (cm.HadError())

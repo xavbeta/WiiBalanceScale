@@ -16,12 +16,12 @@ namespace WiiBalanceScale
 
         private StreamWriter streamWriter;
         private CsvWriter csvWriter;
+        private string path;
 
-        private const string PATH = "C:\\Users\\saver\\Downloads\\";
-
-        public DataWriter(Subject subject)
+        public DataWriter(Subject subject, string path)
         {
             trackMeta = subject;
+            this.path = path;
 
             streamWriter = new StreamWriter(GetFilePath());
             csvWriter = new CsvWriter(streamWriter);
@@ -36,7 +36,7 @@ namespace WiiBalanceScale
         
         private string GetFilePath()
         {
-            return Path.Combine(PATH, GetFileName());
+            return Path.Combine(path, GetFileName());
         }
 
         private void writeHeader()

@@ -53,6 +53,8 @@ namespace WiiBalanceScale
         internal Button btnZero;
         private Label label4;
         internal TextBox txtNotes;
+        internal TextBox txtPath;
+        internal Button button1;
 
         /// <summary>
         /// Required designer variable.
@@ -84,6 +86,8 @@ namespace WiiBalanceScale
             this.progressbar = new System.Windows.Forms.ProgressBar();
             this.countdown = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtPath = new System.Windows.Forms.TextBox();
             this.txtNotes = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnZero = new System.Windows.Forms.Button();
@@ -132,6 +136,8 @@ namespace WiiBalanceScale
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.txtPath);
             this.panel1.Controls.Add(this.txtNotes);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.btnZero);
@@ -148,6 +154,25 @@ namespace WiiBalanceScale
             this.panel1.Size = new System.Drawing.Size(713, 696);
             this.panel1.TabIndex = 15;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(47, 609);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(149, 56);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "Directoy";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click_2);
+            // 
+            // txtPath
+            // 
+            this.txtPath.Enabled = false;
+            this.txtPath.Location = new System.Drawing.Point(209, 622);
+            this.txtPath.Name = "txtPath";
+            this.txtPath.Size = new System.Drawing.Size(457, 31);
+            this.txtPath.TabIndex = 27;
+            this.txtPath.TextChanged += new System.EventHandler(this.TextBox1_TextChanged_1);
+            // 
             // txtNotes
             // 
             this.txtNotes.AcceptsReturn = true;
@@ -155,7 +180,7 @@ namespace WiiBalanceScale
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNotes.Size = new System.Drawing.Size(619, 200);
+            this.txtNotes.Size = new System.Drawing.Size(619, 113);
             this.txtNotes.TabIndex = 25;
             // 
             // label4
@@ -316,6 +341,26 @@ namespace WiiBalanceScale
         private void Label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button1_Click_2(object sender, EventArgs e)
+        {
+
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtPath.Text = folderDialog.SelectedPath;
+            }
         }
     }
 }
