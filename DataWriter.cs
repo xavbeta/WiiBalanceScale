@@ -42,6 +42,7 @@ namespace WiiBalanceScale
         private void writeHeader()
         {
             streamWriter.WriteLine(string.Format("# Start time (local): {0} ", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")));
+            streamWriter.WriteLine(string.Format("# Experiment type: {0} ", trackMeta.ExperimentType));
             streamWriter.WriteLine(string.Format("# Subject name: {0} ", trackMeta.Name));
             streamWriter.WriteLine(string.Format("# Sex: {0}", trackMeta.Sex));
             streamWriter.WriteLine(string.Format("# Height (cm): {0}", trackMeta.Height));

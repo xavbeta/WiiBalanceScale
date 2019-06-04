@@ -42,29 +42,42 @@ namespace WiiBalanceScale
 {
     internal class WiiBalanceStatokinesigram
     {
-        static WiiBalanceScaleForm f = null;
-        static Wiimote bb = null;
-        static ConnectionManager cm = null;
-        static Timer BoardTimer = null;
-        public const int MEASUREMENT_DURATION = 30;
-        static int TickNumber = 0;
-        static DataWriter writer;
-        static IList<Record> data;
-        static Scale scale = new Scale();
+
+        private WiiBalanceScaleForm f = null;
+        private Wiimote bb = null;
+        private ConnectionManager cm = null;
+        private Timer BoardTimer = null;
+        public const int LONG_MEASUREMENT_DURATION = 30;
+        public const int SHORT_MEASUREMENT_DURATION = 15;
+        private int measurementDuration = LONG_MEASUREMENT_DURATION;
+        private int TickNumber = 0;
+        private DataWriter writer;
+        private IList<Record> data;
+        private Scale scale = new Scale();
 
         [STAThread]
         static void Main(string[] args)
         {
+            WiiBalanceStatokinesigram stabilo = new WiiBalanceStatokinesigram();
+        }
+
+        public WiiBalanceStatokinesigram()
+        {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-             
+                      
             f = new WiiBalanceScaleForm();
 
+            f.boxType.TextChanged += new System.EventHandler(UpdateUI);
+            f.boxType.TextChanged += new System.EventHandler(SetExperimentType);
             f.txtName.TextChanged += new System.EventHandler(UpdateUI);
             f.txtHeight.TextChanged += new System.EventHandler(UpdateUI);
             f.txtWeight.TextChanged += new System.EventHandler(UpdateUI);
             f.txtNotes.TextChanged += new System.EventHandler(UpdateUI);
             f.boxSex.TextChanged += new System.EventHandler(UpdateUI);
+            f.txtPath.TextChanged += new System.EventHandler(UpdateUI);
+
+            f.txtPath.Text = Environment.ExpandEnvironmentVariables("%userprofile%"); //default path
 
             f.btnReset.Click += new System.EventHandler(Reset_click);
 
@@ -73,7 +86,8 @@ namespace WiiBalanceScale
 
             ConnectBalanceBoard(false);
 
-            if (f == null) {
+            if (f == null)
+            {
                 //connecting required application restart, end this process here
                 Shutdown();
                 return;
@@ -86,7 +100,18 @@ namespace WiiBalanceScale
             Shutdown();
         }
 
-        private static void BtnWeight_Click(object sender, EventArgs e)
+        private void SetExperimentType(object sender, EventArgs e)
+        {
+            var box = (ComboBox)sender;
+            if (string.IsNullOrWhiteSpace(box.Text)) {
+                return;
+            }
+
+            measurementDuration = box.Text.Contains("ONE LEG") ? SHORT_MEASUREMENT_DURATION : LONG_MEASUREMENT_DURATION;
+            f.countdown.Text = measurementDuration.ToString();
+        }
+
+        private void BtnWeight_Click(object sender, EventArgs e)
         {
             if (bb != null)
             {
@@ -94,14 +119,14 @@ namespace WiiBalanceScale
             }
         }
 
-        private static void BtnZero_Click(object sender, EventArgs e)
+        private void BtnZero_Click(object sender, EventArgs e)
         {
             if(bb != null) {
                 scale.Calibrate(bb);
             }
         }
 
-        private static void Reset_click(object sender, EventArgs e)
+        private void Reset_click(object sender, EventArgs e)
         {
             if (BoardTimer != null)
             {
@@ -109,14 +134,15 @@ namespace WiiBalanceScale
             }
 
             f.txtName.Text = "";
-            f.boxSex.Text = "";
+            f.boxSex.SelectedIndex = 0;
+            f.boxType.SelectedIndex = 0;
             f.txtHeight.Text = "0";
             f.txtWeight.Text = "0";
             f.txtNotes.Text = "";
             f.btnStart.Enabled = false;
         }
 
-        private static void StartTimer_click(object sender, EventArgs e)
+        private void StartTimer_click(object sender, EventArgs e)
         {
 
             if (BoardTimer == null)
@@ -125,11 +151,12 @@ namespace WiiBalanceScale
 
             } else {
                 StopMeasuring();
+                Debug.WriteLine("Measurement interrupted!");
             }
 
         }
 
-        private static bool validateSubjectData()
+        private bool validateSubjectData()
         {
             return (!string.IsNullOrWhiteSpace(f.txtName.Text)
                 && !string.IsNullOrWhiteSpace(f.txtHeight.Text)
@@ -138,7 +165,7 @@ namespace WiiBalanceScale
                 && !string.IsNullOrWhiteSpace(f.txtPath.Text));
         }
 
-        private static Subject getSubjectData()
+        private Subject getSubjectData()
         {
             if (validateSubjectData())
             {
@@ -148,7 +175,8 @@ namespace WiiBalanceScale
                     Height = f.txtHeight.Text,
                     Weight = f.txtWeight.Text,
                     Notes = f.txtNotes.Text,
-                    Sex = f.boxSex.Text
+                    Sex = f.boxSex.Text,
+                    ExperimentType = f.boxType.Text                   
                 };
             }
 
@@ -156,13 +184,13 @@ namespace WiiBalanceScale
         }
 
 
-        static void StarMeasuring()
+        void StarMeasuring()
         {
 
             writer = new DataWriter(getSubjectData(),f.txtPath.Text);
 
             f.progressbar.Value = 0;
-            f.countdown.Text = MEASUREMENT_DURATION.ToString();
+            f.countdown.Text = LONG_MEASUREMENT_DURATION.ToString();
             TickNumber = 0;
 
             BoardTimer = new System.Windows.Forms.Timer();
@@ -173,14 +201,14 @@ namespace WiiBalanceScale
             f.btnStart.Text = "STOP";
         }
 
-        static void StopMeasuring()
+        void StopMeasuring()
         {
             if (writer != null && data != null) {
                 writer.Log(data);
             }
 
             f.progressbar.Value = 0;
-            f.countdown.Text = MEASUREMENT_DURATION.ToString();
+            f.countdown.Text = LONG_MEASUREMENT_DURATION.ToString();
             TickNumber = 0;
 
             BoardTimer.Stop();
@@ -189,7 +217,7 @@ namespace WiiBalanceScale
             f.btnStart.Text = "START";
         }
 
-        static void Shutdown()
+        void Shutdown()
         {
             if (BoardTimer != null) { BoardTimer.Stop(); BoardTimer = null; }
             if (cm != null) { cm.Cancel(); cm = null; }
@@ -197,7 +225,7 @@ namespace WiiBalanceScale
             Application.Exit();
         }
 
-        static void ConnectBalanceBoard(bool WasJustConnected)
+        void ConnectBalanceBoard(bool WasJustConnected)
         {
             bool Connected = true; try { bb = new Wiimote(); bb.Connect(); bb.SetLEDs(1); bb.GetStatus(); } catch { Connected = false; }
 
@@ -213,7 +241,7 @@ namespace WiiBalanceScale
             f.Refresh();
         }
 
-        static void BoardTimer_Tick(object sender, System.EventArgs e)
+        void BoardTimer_Tick(object sender, System.EventArgs e)
         {
             if (cm != null)
             {
@@ -232,7 +260,7 @@ namespace WiiBalanceScale
                 return;
             }
 
-            if (TickNumber * BoardTimer.Interval < MEASUREMENT_DURATION * 1000)
+            if (TickNumber * BoardTimer.Interval < measurementDuration * 1000)
             {
                 if(data == null)
                 {
@@ -258,17 +286,17 @@ namespace WiiBalanceScale
 
         }
 
-        private static void UpdateCountdownUI()
+        private void UpdateCountdownUI()
         {
             var elapsedSecs = ((TickNumber * BoardTimer.Interval) / 1000);
-            f.countdown.Text = (MEASUREMENT_DURATION - (int)elapsedSecs).ToString();
+            f.countdown.Text = (measurementDuration - (int)elapsedSecs).ToString();
 
-            var progress = elapsedSecs * 100 / MEASUREMENT_DURATION;
+            var progress = elapsedSecs * 100 / measurementDuration;
             f.progressbar.Value = progress;
 
         }
 
-        static void UpdateUI(object sender, System.EventArgs e)
+        void UpdateUI(object sender, System.EventArgs e)
         {
             f.btnStart.Enabled = validateSubjectData();
         }

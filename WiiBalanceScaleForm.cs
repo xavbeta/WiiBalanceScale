@@ -55,6 +55,8 @@ namespace WiiBalanceScale
         internal TextBox txtNotes;
         internal TextBox txtPath;
         internal Button button1;
+        private Label label5;
+        internal ComboBox boxType;
 
         /// <summary>
         /// Required designer variable.
@@ -100,6 +102,8 @@ namespace WiiBalanceScale
             this.label1 = new System.Windows.Forms.Label();
             this.boxSex = new System.Windows.Forms.ComboBox();
             this.btnReset = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.boxType = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -136,6 +140,8 @@ namespace WiiBalanceScale
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.boxType);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.txtPath);
             this.panel1.Controls.Add(this.txtNotes);
@@ -160,7 +166,7 @@ namespace WiiBalanceScale
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(149, 56);
             this.button1.TabIndex = 28;
-            this.button1.Text = "Directoy";
+            this.button1.Text = "DIRECTORY";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click_2);
             // 
@@ -176,17 +182,17 @@ namespace WiiBalanceScale
             // txtNotes
             // 
             this.txtNotes.AcceptsReturn = true;
-            this.txtNotes.Location = new System.Drawing.Point(47, 458);
+            this.txtNotes.Location = new System.Drawing.Point(47, 507);
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNotes.Size = new System.Drawing.Size(619, 113);
+            this.txtNotes.Size = new System.Drawing.Size(619, 76);
             this.txtNotes.TabIndex = 25;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(42, 51);
+            this.label4.Location = new System.Drawing.Point(42, 100);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 25);
             this.label4.TabIndex = 24;
@@ -195,7 +201,7 @@ namespace WiiBalanceScale
             // 
             // btnZero
             // 
-            this.btnZero.Location = new System.Drawing.Point(47, 371);
+            this.btnZero.Location = new System.Drawing.Point(47, 420);
             this.btnZero.Name = "btnZero";
             this.btnZero.Size = new System.Drawing.Size(619, 57);
             this.btnZero.TabIndex = 23;
@@ -204,7 +210,7 @@ namespace WiiBalanceScale
             // 
             // btnScale
             // 
-            this.btnScale.Location = new System.Drawing.Point(47, 297);
+            this.btnScale.Location = new System.Drawing.Point(47, 346);
             this.btnScale.Name = "btnScale";
             this.btnScale.Size = new System.Drawing.Size(619, 57);
             this.btnScale.TabIndex = 22;
@@ -214,15 +220,15 @@ namespace WiiBalanceScale
             // 
             // txtWeight
             // 
-            this.txtWeight.Location = new System.Drawing.Point(209, 233);
+            this.txtWeight.Location = new System.Drawing.Point(259, 282);
             this.txtWeight.Name = "txtWeight";
-            this.txtWeight.Size = new System.Drawing.Size(457, 31);
+            this.txtWeight.Size = new System.Drawing.Size(407, 31);
             this.txtWeight.TabIndex = 21;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(42, 233);
+            this.label3.Location = new System.Drawing.Point(42, 282);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(122, 25);
             this.label3.TabIndex = 20;
@@ -230,16 +236,16 @@ namespace WiiBalanceScale
             // 
             // txtHeight
             // 
-            this.txtHeight.Location = new System.Drawing.Point(209, 171);
+            this.txtHeight.Location = new System.Drawing.Point(259, 220);
             this.txtHeight.Name = "txtHeight";
-            this.txtHeight.Size = new System.Drawing.Size(457, 31);
+            this.txtHeight.Size = new System.Drawing.Size(407, 31);
             this.txtHeight.TabIndex = 19;
             this.txtHeight.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 171);
+            this.label2.Location = new System.Drawing.Point(42, 220);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 25);
             this.label2.TabIndex = 18;
@@ -248,15 +254,15 @@ namespace WiiBalanceScale
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(209, 109);
+            this.txtName.Location = new System.Drawing.Point(259, 158);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(457, 31);
+            this.txtName.Size = new System.Drawing.Size(407, 31);
             this.txtName.TabIndex = 17;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 109);
+            this.label1.Location = new System.Drawing.Point(42, 158);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 25);
             this.label1.TabIndex = 16;
@@ -270,10 +276,11 @@ namespace WiiBalanceScale
             this.boxSex.Items.AddRange(new object[] {
             "MALE",
             "FEMALE"});
-            this.boxSex.Location = new System.Drawing.Point(209, 51);
+            this.boxSex.Location = new System.Drawing.Point(259, 100);
             this.boxSex.Name = "boxSex";
-            this.boxSex.Size = new System.Drawing.Size(457, 33);
+            this.boxSex.Size = new System.Drawing.Size(407, 33);
             this.boxSex.TabIndex = 15;
+            this.boxSex.Text = "MALE";
             this.boxSex.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // btnReset
@@ -287,6 +294,30 @@ namespace WiiBalanceScale
             this.btnReset.Text = "RESET";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.Button1_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(42, 41);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(174, 25);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "Experiment Type";
+            // 
+            // boxType
+            // 
+            this.boxType.FormattingEnabled = true;
+            this.boxType.ItemHeight = 25;
+            this.boxType.Items.AddRange(new object[] {
+            "TWO LEGS OPEN EYES",
+            "TWO LEGS CLOSED EYES",
+            "ONE LEG OPEN EYES",
+            "ONE LEG CLOSED EYES"});
+            this.boxType.Location = new System.Drawing.Point(259, 41);
+            this.boxType.Name = "boxType";
+            this.boxType.Size = new System.Drawing.Size(407, 33);
+            this.boxType.TabIndex = 29;
+            this.boxType.Text = "TWO LEGS OPEN EYES";
             // 
             // WiiBalanceScaleForm
             // 

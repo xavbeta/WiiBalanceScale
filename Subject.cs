@@ -13,6 +13,7 @@ namespace WiiBalanceScale
         public string Height { get; set; }
         public string Weight { get; set; }
         public string Notes { get; set; }
+        public string ExperimentType { get; set; }
 
     }
 }
