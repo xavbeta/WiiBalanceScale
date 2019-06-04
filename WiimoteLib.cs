@@ -1492,10 +1492,10 @@ namespace WiimoteLib
 	}
 
 #if MSRS
-	[DataContract]
+	[@DataContract]
 	public struct RumbleRequest
 	{
-		[DataMember]
+		[@DataMember]
 		public bool Rumble;
 	}
 #endif
@@ -1504,13 +1504,13 @@ namespace WiimoteLib
 	/// Point structure for floating point 2D positions (X, Y)
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct PointF
 	{
 		/// <summary>
 		/// X, Y coordinates of this point
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float X, Y;
 
 		/// <summary>
@@ -1528,13 +1528,13 @@ namespace WiimoteLib
 	/// Point structure for int 2D positions (X, Y)
 	/// </summary>
 	[Serializable]	
-	[DataContract]
+	[@DataContract]
 	public struct Point
 	{
 		/// <summary>
 		/// X, Y coordinates of this point
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public int X, Y;
 
 		/// <summary>
@@ -1551,13 +1551,13 @@ namespace WiimoteLib
 	/// Point structure for floating point 3D positions (X, Y, Z)
 	/// </summary>
 	[Serializable]	
-	[DataContract]
+	[@DataContract]
 	public struct Point3F
 	{
 		/// <summary>
 		/// X, Y, Z coordinates of this point
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float X, Y, Z;
 
 		/// <summary>
@@ -1575,13 +1575,13 @@ namespace WiimoteLib
 	/// Point structure for int 3D positions (X, Y, Z)
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct Point3
 	{
 		/// <summary>
 		/// X, Y, Z coordinates of this point
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public int X, Y, Z;
 
 		/// <summary>
@@ -1598,73 +1598,73 @@ namespace WiimoteLib
 	/// Current overall state of the Wiimote and all attachments
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public class WiimoteState
 	{
 		/// <summary>
 		/// Current calibration information
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public AccelCalibrationInfo AccelCalibrationInfo;
 		/// <summary>
 		/// Current state of accelerometers
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public AccelState AccelState;
 		/// <summary>
 		/// Current state of buttons
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public ButtonState ButtonState;
 		/// <summary>
 		/// Current state of IR sensors
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public IRState IRState;
 		/// <summary>
 		/// Raw byte value of current battery level
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte BatteryRaw;
 		/// <summary>
 		/// Calculated current battery level
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float Battery;
 		/// <summary>
 		/// Current state of rumble
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool Rumble;
 		/// <summary>
 		/// Is an extension controller inserted?
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool Extension;
 		/// <summary>
 		/// Extension controller currently inserted, if any
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public ExtensionType ExtensionType;
 		/// <summary>
 		/// Current state of Nunchuk extension
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public NunchukState NunchukState;
 		/// <summary>
 		/// Current state of Classic Controller extension
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public ClassicControllerState ClassicControllerState;
 		/// <summary>
 		/// Current state of Guitar extension
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public GuitarState GuitarState;
 		/// <summary>
 		/// Current state of Drums extension
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public DrumsState DrumsState;
 		/// <summary>
 		/// Current state of the Wii Fit Balance Board
@@ -1673,7 +1673,7 @@ namespace WiimoteLib
 		/// <summary>
 		/// Current state of LEDs
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public LEDState LEDState;
 
 		/// <summary>
@@ -1689,13 +1689,13 @@ namespace WiimoteLib
 	/// Current state of LEDs
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct LEDState
 	{
 		/// <summary>
 		/// LED on the Wiimote
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool LED1, LED2, LED3, LED4;
 	}
 
@@ -1703,7 +1703,7 @@ namespace WiimoteLib
 	/// Calibration information stored on the Nunchuk
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct NunchukCalibrationInfo
 	{
 		/// <summary>
@@ -1713,12 +1713,12 @@ namespace WiimoteLib
 		/// <summary>
 		/// Joystick X-axis calibration
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte MinX, MidX, MaxX;
 		/// <summary>
 		/// Joystick Y-axis calibration
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte MinY, MidY, MaxY;
 	}
 
@@ -1726,38 +1726,38 @@ namespace WiimoteLib
 	/// Calibration information stored on the Classic Controller
 	/// </summary>
 	[Serializable]
-	[DataContract]	
+	[@DataContract]	
 	public struct ClassicControllerCalibrationInfo
 	{
 		/// <summary>
 		/// Left joystick X-axis 
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte MinXL, MidXL, MaxXL;
 		/// <summary>
 		/// Left joystick Y-axis
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte MinYL, MidYL, MaxYL;
 		/// <summary>
 		/// Right joystick X-axis
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte MinXR, MidXR, MaxXR;
 		/// <summary>
 		/// Right joystick Y-axis
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte MinYR, MidYR, MaxYR;
 		/// <summary>
 		/// Left analog trigger
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte MinTriggerL, MaxTriggerL;
 		/// <summary>
 		/// Right analog trigger
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte MinTriggerR, MaxTriggerR;
 	}
 
@@ -1765,33 +1765,33 @@ namespace WiimoteLib
 	/// Current state of the Nunchuk extension
 	/// </summary>
 	[Serializable]
-	[DataContract]	
+	[@DataContract]	
 	public struct NunchukState
 	{
 		/// <summary>
 		/// Calibration data for Nunchuk extension
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public NunchukCalibrationInfo CalibrationInfo;
 		/// <summary>
 		/// State of accelerometers
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public AccelState AccelState;
 		/// <summary>
 		/// Raw joystick position before normalization.  Values range between 0 and 255.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public Point RawJoystick;
 		/// <summary>
 		/// Normalized joystick position.  Values range between -0.5 and 0.5
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public PointF Joystick;
 		/// <summary>
 		/// Digital button on Nunchuk extension
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool C, Z;
 	}
 
@@ -1799,18 +1799,18 @@ namespace WiimoteLib
 	/// Curernt button state of the Classic Controller
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct ClassicControllerButtonState
 	{
 		/// <summary>
 		/// Digital button on the Classic Controller extension
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool A, B, Plus, Home, Minus, Up, Down, Left, Right, X, Y, ZL, ZR;
 		/// <summary>
 		/// Analog trigger - false if released, true for any pressure applied
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool TriggerL, TriggerR;
 	}
 
@@ -1818,48 +1818,48 @@ namespace WiimoteLib
 	/// Current state of the Classic Controller
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct ClassicControllerState
 	{
 		/// <summary>
 		/// Calibration data for Classic Controller extension
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public ClassicControllerCalibrationInfo CalibrationInfo;
 		/// <summary>
 		/// Current button state
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public ClassicControllerButtonState ButtonState;
 		/// <summary>
 		/// Raw value of left joystick.  Values range between 0 - 255.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public Point RawJoystickL;
 		/// <summary>
 		/// Raw value of right joystick.  Values range between 0 - 255.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public Point RawJoystickR;
 		/// <summary>
 		/// Normalized value of left joystick.  Values range between -0.5 - 0.5
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public PointF JoystickL;
 		/// <summary>
 		/// Normalized value of right joystick.  Values range between -0.5 - 0.5
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public PointF JoystickR;
 		/// <summary>
 		/// Raw value of analog trigger.  Values range between 0 - 255.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte RawTriggerL, RawTriggerR;
 		/// <summary>
 		/// Normalized value of analog trigger.  Values range between 0.0 - 1.0.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float TriggerL, TriggerR;
 	}
 
@@ -1867,48 +1867,48 @@ namespace WiimoteLib
 	/// Current state of the Guitar controller
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct GuitarState
 	{
 		/// <summary>
 		/// Guitar type
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public GuitarType GuitarType;
 		/// <summary>
 		/// Current button state of the Guitar
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public GuitarButtonState ButtonState;
 		/// <summary>
 		/// Current fret button state of the Guitar
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public GuitarFretButtonState FretButtonState;
 		/// <summary>
 		/// Current touchbar state of the Guitar
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public GuitarFretButtonState TouchbarState;
 		/// <summary>
 		/// Raw joystick position.  Values range between 0 - 63.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public Point RawJoystick;
 		/// <summary>
 		/// Normalized value of joystick position.  Values range between 0.0 - 1.0.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public PointF Joystick;
 		/// <summary>
 		/// Raw whammy bar position.  Values range between 0 - 10.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte RawWhammyBar;
 		/// <summary>
 		/// Normalized value of whammy bar position.  Values range between 0.0 - 1.0.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float WhammyBar;
 	}
 
@@ -1916,13 +1916,13 @@ namespace WiimoteLib
 	/// Current fret button state of the Guitar controller
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct GuitarFretButtonState
 	{
 		/// <summary>
 		/// Fret buttons
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool Green, Red, Yellow, Blue, Orange;
 	}
 
@@ -1931,18 +1931,18 @@ namespace WiimoteLib
 	/// Current button state of the Guitar controller
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct GuitarButtonState
 	{
 		/// <summary>
 		/// Strum bar
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool StrumUp, StrumDown;
 		/// <summary>
 		/// Other buttons
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool Minus, Plus;
 	}
 
@@ -1950,7 +1950,7 @@ namespace WiimoteLib
 	/// Current state of the Drums controller
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct DrumsState
 	{
 		/// <summary>
@@ -1979,43 +1979,43 @@ namespace WiimoteLib
 	/// Current state of the Wii Fit Balance Board controller
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct BalanceBoardState
 	{
 		/// <summary>
 		/// Calibration information for the Balance Board
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public BalanceBoardCalibrationInfo CalibrationInfo;
 		/// <summary>
 		/// Raw values of each sensor
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public BalanceBoardSensors SensorValuesRaw;
 		/// <summary>
 		/// Kilograms per sensor
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public BalanceBoardSensorsF SensorValuesKg;
 		/// <summary>
 		/// Pounds per sensor
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public BalanceBoardSensorsF SensorValuesLb;
 		/// <summary>
 		/// Total kilograms on the Balance Board
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float WeightKg;
 		/// <summary>
 		/// Total pounds on the Balance Board
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float WeightLb;
 		/// <summary>
 		/// Center of gravity of Balance Board user
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public PointF CenterOfGravity;
 	}
 
@@ -2023,23 +2023,23 @@ namespace WiimoteLib
 	/// Calibration information
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct BalanceBoardCalibrationInfo
 	{
 		/// <summary>
 		/// Calibration information at 0kg
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public BalanceBoardSensors Kg0;
 		/// <summary>
 		/// Calibration information at 17kg
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public BalanceBoardSensors Kg17;
 		/// <summary>
 		/// Calibration information at 34kg
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public BalanceBoardSensors Kg34;
 	}
 
@@ -2047,28 +2047,28 @@ namespace WiimoteLib
 	/// The 4 sensors on the Balance Board (short values)
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct BalanceBoardSensors
 	{
 		/// <summary>
 		/// Sensor at top right
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public short TopRight;
 		/// <summary>
 		/// Sensor at top left
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public short TopLeft;
 		/// <summary>
 		/// Sensor at bottom right
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public short BottomRight;
 		/// <summary>
 		/// Sensor at bottom left
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public short BottomLeft;
 	}
 
@@ -2076,28 +2076,28 @@ namespace WiimoteLib
 	/// The 4 sensors on the Balance Board (float values)
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct BalanceBoardSensorsF
 	{
 		/// <summary>
 		/// Sensor at top right
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float TopRight;
 		/// <summary>
 		/// Sensor at top left
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float TopLeft;
 		/// <summary>
 		/// Sensor at bottom right
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float BottomRight;
 		/// <summary>
 		/// Sensor at bottom left
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public float BottomLeft;
 	}
 
@@ -2105,28 +2105,28 @@ namespace WiimoteLib
 	/// Current state of a single IR sensor
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct IRSensor
 	{
 		/// <summary>
 		/// Raw values of individual sensor.  Values range between 0 - 1023 on the X axis and 0 - 767 on the Y axis.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public Point RawPosition;
 		/// <summary>
 		/// Normalized values of the sensor position.  Values range between 0.0 - 1.0.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public PointF Position;
 		/// <summary>
 		/// Size of IR Sensor.  Values range from 0 - 15
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public int Size;
 		/// <summary>
 		/// IR sensor seen
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool Found;
 		/// <summary>
 		/// Convert to human-readable string
@@ -2142,28 +2142,28 @@ namespace WiimoteLib
 	/// Current state of the IR camera
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct IRState
 	{
 		/// <summary>
 		/// Current mode of IR sensor data
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public IRMode Mode;
 		/// <summary>
 		/// Current state of IR sensors
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public IRSensor[] IRSensors;
 		/// <summary>
 		/// Raw midpoint of IR sensors 1 and 2 only.  Values range between 0 - 1023, 0 - 767
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public Point RawMidpoint;
 		/// <summary>
 		/// Normalized midpoint of IR sensors 1 and 2 only.  Values range between 0.0 - 1.0
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public PointF Midpoint;
 	}
 
@@ -2171,19 +2171,19 @@ namespace WiimoteLib
 	/// Current state of the accelerometers
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct AccelState
 	{
 		/// <summary>
 		/// Raw accelerometer data.
 		/// <remarks>Values range between 0 - 255</remarks>
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public Point3 RawValues;
 		/// <summary>
 		/// Normalized accelerometer data.  Values range between 0 - ?, but values > 3 and &lt; -3 are inaccurate.
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public Point3F Values;
 	}
 
@@ -2191,18 +2191,18 @@ namespace WiimoteLib
 	/// Accelerometer calibration information
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct AccelCalibrationInfo
 	{
 		/// <summary>
 		/// Zero point of accelerometer
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte X0, Y0, Z0;
 		/// <summary>
 		/// Gravity at rest of accelerometer
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public byte XG, YG, ZG;
 	}
 
@@ -2210,20 +2210,20 @@ namespace WiimoteLib
 	/// Current button state
 	/// </summary>
 	[Serializable]
-	[DataContract]
+	[@DataContract]
 	public struct ButtonState
 	{
 		/// <summary>
 		/// Digital button on the Wiimote
 		/// </summary>
-		[DataMember]
+		[@DataMember]
 		public bool A, B, Plus, Home, Minus, One, Two, Up, Down, Left, Right;
 	}
 
 	/// <summary>
 	/// The extension plugged into the Wiimote
 	/// </summary>
-	[DataContract]
+	[@DataContract]
 	public enum ExtensionType : long
 	{
 		/// <summary>
@@ -2261,7 +2261,7 @@ namespace WiimoteLib
 	/// <summary>
 	/// The mode of data reported for the IR sensor
 	/// </summary>
-	[DataContract]
+	[@DataContract]
 	public enum IRMode : byte
 	{
 		/// <summary>

@@ -24,8 +24,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 **********************************************************************************/
 
+using System.Diagnostics;
 using System.Windows.Forms;
 using WiimoteLib;
+
 
 [assembly: System.Reflection.AssemblyTitle("WiiBalanceScale")]
 [assembly: System.Reflection.AssemblyProduct("WiiBalanceScale")]
@@ -46,6 +48,8 @@ namespace WiiBalanceScale
         static int HistoryBest = 1, HistoryCursor = -1;
         static string StarFull = "", StarEmpty = "";
         static bool UsePounds = false;
+
+            
 
         static void Main(string[] args)
         {
@@ -134,6 +138,9 @@ namespace WiiBalanceScale
                 ConnectBalanceBoard(true);
                 return;
             }
+            var accelerations = bb.WiimoteState.BalanceBoardState.CenterOfGravity;
+
+            Debug.WriteLine(string.Format("X: {0}  Y: {1} ", accelerations.X, accelerations.Y));
 
             float kg = bb.WiimoteState.BalanceBoardState.WeightKg, HistorySum = 0.0f, MaxHist = kg, MinHist = kg, MaxDiff = 0.0f;
             if (kg < -200)
