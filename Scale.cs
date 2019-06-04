@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +15,15 @@ namespace WiiBalanceScale
         public void Calibrate(Wiimote board)
         {
             calibration = board.WiimoteState.BalanceBoardState.WeightKg;
+            Debug.WriteLine(string.Format("Calibration set {0}", calibration));
         }
 
         public float GetWeight(Wiimote board)
         {
-            return board.WiimoteState.BalanceBoardState.WeightKg - calibration;
+            var weight = board.WiimoteState.BalanceBoardState.WeightKg;
+            var calibratedWeight = weight - calibration; 
+            Debug.WriteLine(string.Format("Weight {0}kg (uncalibrated {1}kg)", calibratedWeight, weight));
+            return calibratedWeight;
         }
         
     }

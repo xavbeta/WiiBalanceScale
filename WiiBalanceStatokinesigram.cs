@@ -27,6 +27,7 @@ SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 using WiimoteLib;
@@ -47,6 +48,7 @@ namespace WiiBalanceScale
         private Wiimote bb = null;
         private ConnectionManager cm = null;
         private Timer BoardTimer = null;
+        public const int COUNTDOWN_DURATION = 5;
         public const int LONG_MEASUREMENT_DURATION = 30;
         public const int SHORT_MEASUREMENT_DURATION = 15;
         private int measurementDuration = LONG_MEASUREMENT_DURATION;
@@ -54,6 +56,7 @@ namespace WiiBalanceScale
         private DataWriter writer;
         private IList<Record> data;
         private Scale scale = new Scale();
+        private PlayerManager pm;
 
         [STAThread]
         static void Main(string[] args)
@@ -77,6 +80,8 @@ namespace WiiBalanceScale
             f.boxSex.TextChanged += new System.EventHandler(UpdateUI);
             f.txtPath.TextChanged += new System.EventHandler(UpdateUI);
 
+            f.countdown.TextChanged += new System.EventHandler(Countdown_changed);
+
             f.txtPath.Text = Environment.ExpandEnvironmentVariables("%userprofile%"); //default path
 
             f.btnReset.Click += new System.EventHandler(Reset_click);
@@ -96,8 +101,32 @@ namespace WiiBalanceScale
             f.btnZero.Click += BtnZero_Click;
             f.btnScale.Click += BtnWeight_Click;
 
+            pm = new PlayerManager();
+
             Application.Run(f);
             Shutdown();
+        }
+
+        private void Countdown_changed(object sender, EventArgs e)
+        {
+
+            if (BoardTimer != null)
+            {
+                Label cd = (Label)sender;
+                var secs = int.Parse(cd.Text);
+                var isCountdown = cd.ForeColor == Color.Red;
+
+                if (isCountdown)
+                {
+                    pm.PlayPrimary();
+                    Debug.WriteLine("Primary player fired");
+                }
+                else if (secs == measurementDuration)
+                {
+                    pm.PlaySecondary();
+                    Debug.WriteLine("Secondary player fired");
+                }
+            }
         }
 
         private void SetExperimentType(object sender, EventArgs e)
@@ -140,6 +169,7 @@ namespace WiiBalanceScale
             f.txtWeight.Text = "0";
             f.txtNotes.Text = "";
             f.btnStart.Enabled = false;
+
         }
 
         private void StartTimer_click(object sender, EventArgs e)
@@ -203,17 +233,20 @@ namespace WiiBalanceScale
 
         void StopMeasuring()
         {
+            pm.PlayFinal();
+            Debug.WriteLine("Final player fired");
+
             if (writer != null && data != null) {
                 writer.Log(data);
             }
 
-            f.progressbar.Value = 0;
-            f.countdown.Text = LONG_MEASUREMENT_DURATION.ToString();
-            TickNumber = 0;
-
             BoardTimer.Stop();
             BoardTimer.Dispose();
             BoardTimer = null;
+
+            f.progressbar.Value = 0;
+            f.countdown.Text = measurementDuration.ToString();
+            TickNumber = 0;
             f.btnStart.Text = "START";
         }
 
@@ -260,23 +293,29 @@ namespace WiiBalanceScale
                 return;
             }
 
-            if (TickNumber * BoardTimer.Interval < measurementDuration * 1000)
+            if (TickNumber * BoardTimer.Interval < TotalTime * 1000)
             {
-                if(data == null)
-                {
-                    data = new List<Record>();
-                }
-
                 TickNumber++;
                 UpdateCountdownUI();
-                var centerOfGravity = bb.WiimoteState.BalanceBoardState.CenterOfGravity;
-                Debug.WriteLine(string.Format("X: {0}  Y: {1} ", centerOfGravity.X, centerOfGravity.Y));
-                data.Add(new Record {
+
+                if (TickNumber * BoardTimer.Interval > COUNTDOWN_DURATION * 1000)
+                {
+                    if (data == null)
+                    {
+                        data = new List<Record>();
+                    }
+
+
+                    var centerOfGravity = bb.WiimoteState.BalanceBoardState.CenterOfGravity;
+                    Debug.WriteLine(string.Format("X: {0}  Y: {1} ", centerOfGravity.X, centerOfGravity.Y));
+                    data.Add(new Record
+                    {
                         Ticks = DateTime.Now.Ticks,
                         //Timestamp = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff"),
                         GravX = centerOfGravity.X.ToString(new CultureInfo("en-US")),
                         GravY = centerOfGravity.Y.ToString(new CultureInfo("en-US"))
-                });
+                    });
+                }
 
             } else
             {
@@ -286,14 +325,30 @@ namespace WiiBalanceScale
 
         }
 
+        private int TotalTime
+        {
+            get { return measurementDuration + COUNTDOWN_DURATION; }
+        }
+
         private void UpdateCountdownUI()
         {
             var elapsedSecs = ((TickNumber * BoardTimer.Interval) / 1000);
-            f.countdown.Text = (measurementDuration - (int)elapsedSecs).ToString();
+            var elapsedSecsInt = (int)elapsedSecs;
 
-            var progress = elapsedSecs * 100 / measurementDuration;
-            f.progressbar.Value = progress;
+            if (elapsedSecs < COUNTDOWN_DURATION)
+            {
+                f.countdown.Text = (COUNTDOWN_DURATION - elapsedSecsInt).ToString();
+                f.countdown.ForeColor = Color.Red;
+            }
+            else
+            {
+                f.countdown.ForeColor = Color.Black;
+                elapsedSecsInt = elapsedSecsInt - COUNTDOWN_DURATION;
+                f.countdown.Text = (measurementDuration - elapsedSecsInt).ToString();
 
+                var progress = elapsedSecsInt * 100 / measurementDuration;
+                f.progressbar.Value = progress;
+            }
         }
 
         void UpdateUI(object sender, System.EventArgs e)
