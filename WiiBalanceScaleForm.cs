@@ -57,6 +57,7 @@ namespace WiiBalanceScale
         internal Button button1;
         private Label label5;
         internal ComboBox boxType;
+        private Panel panel2;
 
         /// <summary>
         /// Required designer variable.
@@ -88,6 +89,8 @@ namespace WiiBalanceScale
             this.progressbar = new System.Windows.Forms.ProgressBar();
             this.countdown = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.boxType = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.txtNotes = new System.Windows.Forms.TextBox();
@@ -102,18 +105,18 @@ namespace WiiBalanceScale
             this.label1 = new System.Windows.Forms.Label();
             this.boxSex = new System.Windows.Forms.ComboBox();
             this.btnReset = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.boxType = new System.Windows.Forms.ComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnStart.Location = new System.Drawing.Point(1329, 599);
+            this.btnStart.Location = new System.Drawing.Point(539, 542);
             this.btnStart.Margin = new System.Windows.Forms.Padding(6);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(488, 123);
+            this.btnStart.Size = new System.Drawing.Size(439, 111);
             this.btnStart.TabIndex = 7;
             this.btnStart.Text = "START";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -130,7 +133,7 @@ namespace WiiBalanceScale
             // 
             this.countdown.AutoSize = true;
             this.countdown.Font = new System.Drawing.Font("Roboto Medium", 69.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.countdown.Location = new System.Drawing.Point(1165, 182);
+            this.countdown.Location = new System.Drawing.Point(352, 179);
             this.countdown.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.countdown.Name = "countdown";
             this.countdown.Size = new System.Drawing.Size(304, 224);
@@ -159,6 +162,30 @@ namespace WiiBalanceScale
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(713, 696);
             this.panel1.TabIndex = 15;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(42, 41);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(174, 25);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "Experiment Type";
+            // 
+            // boxType
+            // 
+            this.boxType.FormattingEnabled = true;
+            this.boxType.ItemHeight = 25;
+            this.boxType.Items.AddRange(new object[] {
+            "TWO LEGS OPEN EYES",
+            "TWO LEGS CLOSED EYES",
+            "ONE LEG OPEN EYES",
+            "ONE LEG CLOSED EYES"});
+            this.boxType.Location = new System.Drawing.Point(259, 41);
+            this.boxType.Name = "boxType";
+            this.boxType.Size = new System.Drawing.Size(407, 33);
+            this.boxType.TabIndex = 29;
+            this.boxType.Text = "TWO LEGS OPEN EYES";
             // 
             // button1
             // 
@@ -286,49 +313,34 @@ namespace WiiBalanceScale
             // btnReset
             // 
             this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnReset.Location = new System.Drawing.Point(815, 599);
+            this.btnReset.Location = new System.Drawing.Point(23, 542);
             this.btnReset.Margin = new System.Windows.Forms.Padding(6);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(488, 123);
+            this.btnReset.Size = new System.Drawing.Size(439, 111);
             this.btnReset.TabIndex = 16;
             this.btnReset.Text = "RESET";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.Button1_Click);
             // 
-            // label5
+            // panel2
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(42, 41);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(174, 25);
-            this.label5.TabIndex = 30;
-            this.label5.Text = "Experiment Type";
-            // 
-            // boxType
-            // 
-            this.boxType.FormattingEnabled = true;
-            this.boxType.ItemHeight = 25;
-            this.boxType.Items.AddRange(new object[] {
-            "TWO LEGS OPEN EYES",
-            "TWO LEGS CLOSED EYES",
-            "ONE LEG OPEN EYES",
-            "ONE LEG CLOSED EYES"});
-            this.boxType.Location = new System.Drawing.Point(259, 41);
-            this.boxType.Name = "boxType";
-            this.boxType.Size = new System.Drawing.Size(407, 33);
-            this.boxType.TabIndex = 29;
-            this.boxType.Text = "TWO LEGS OPEN EYES";
+            this.panel2.Controls.Add(this.countdown);
+            this.panel2.Controls.Add(this.btnReset);
+            this.panel2.Controls.Add(this.btnStart);
+            this.panel2.Location = new System.Drawing.Point(789, 26);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1082, 696);
+            this.panel2.TabIndex = 17;
             // 
             // WiiBalanceScaleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1866, 842);
-            this.Controls.Add(this.btnReset);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1869, 842);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.countdown);
             this.Controls.Add(this.progressbar);
-            this.Controls.Add(this.btnStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
@@ -336,8 +348,9 @@ namespace WiiBalanceScale
             this.Text = "Wii Balance Scale";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
