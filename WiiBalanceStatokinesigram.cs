@@ -50,7 +50,7 @@ namespace WiiBalanceScale
         private Timer BoardTimer = null;
         public const int COUNTDOWN_DURATION = 5;
         public const int LONG_MEASUREMENT_DURATION = 30;
-        public const int SHORT_MEASUREMENT_DURATION = 15;
+        public const int SHORT_MEASUREMENT_DURATION = 10;
         private int measurementDuration = LONG_MEASUREMENT_DURATION;
         private int TickNumber = 0;
         private DataWriter writer;
